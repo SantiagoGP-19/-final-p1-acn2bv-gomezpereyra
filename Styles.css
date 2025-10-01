@@ -67,9 +67,7 @@ p.lead {
     color: var(--muted);
 }
 
-/* ------------------------
-   Form y controles
-   ------------------------ */
+
 .controls {
     display: flex;
     flex-wrap: wrap;
@@ -179,9 +177,7 @@ a.btn-link {
     border: 1px solid var(--card-border);
 }
 
-/* ------------------------
-   Form POST (sugerir)
-   ------------------------ */
+
 .sugerir {
     margin-top: 22px;
     background: var(--card);
@@ -231,9 +227,7 @@ a.btn-link {
     margin-bottom: 8px;
 }
 
-/* ------------------------
-   Responsive & footer
-   ------------------------ */
+
 footer {
     margin-top: 26px;
     color: var(--muted);
