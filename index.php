@@ -159,9 +159,13 @@ function esc($str) { return htmlspecialchars($str, ENT_QUOTES | ENT_SUBSTITUTE, 
 
 <main>
     <section aria-label="Buscador y filtros">
+        <h2>Buscar y filtrar</h2>
         <form method="get">
-            <input type="text" name="q" placeholder="Buscar por título..." value="<?= esc($q); ?>">
-            <select name="categoria">
+            <label for="q">Título</label>
+            <input id="q" type="text" name="q" placeholder="Buscar por título..." value="<?= esc($q); ?>">
+
+            <label for="categoriaFiltro">Categoría</label>
+            <select id="categoriaFiltro" name="categoria">
                 <option value="">Todas</option>
                 <?php foreach ($categories as $cat): ?>
                     <option value="<?= esc($cat); ?>" <?= ($categoriaFilter === $cat) ? 'selected' : ''; ?>>
@@ -169,6 +173,7 @@ function esc($str) { return htmlspecialchars($str, ENT_QUOTES | ENT_SUBSTITUTE, 
                     </option>
                 <?php endforeach; ?>
             </select>
+
             <input type="hidden" name="tema" value="<?= esc($tema); ?>">
             <button type="submit">Buscar</button>
             <a class="btn-link" href="?tema=<?= esc($tema); ?>">Mostrar todos</a>
@@ -181,7 +186,7 @@ function esc($str) { return htmlspecialchars($str, ENT_QUOTES | ENT_SUBSTITUTE, 
         <?php else: ?>
             <?php foreach ($filtered as $it): ?>
                 <article class="card">
-                    <img src="<?= esc($it['imagen']); ?>" alt="Portada: <?= esc($it['title']); ?>">
+                    <img src="<?= esc($it['imagen']); ?>" alt="Portada del álbum <?= esc($it['title']); ?>">
                     <div class="card-body">
                         <div class="meta">
                             <span class="badge">
@@ -189,7 +194,7 @@ function esc($str) { return htmlspecialchars($str, ENT_QUOTES | ENT_SUBSTITUTE, 
                                     <?= esc($it['categoria']); ?>
                                 </a>
                             </span>
-                            <time class="anio"><?= esc($it['anio']); ?></time>
+                            <time class="anio" datetime="<?= esc($it['anio']); ?>"><?= esc($it['anio']); ?></time>
                         </div>
                         <h3><?= esc($it['title']); ?></h3>
                         <p class="desc"><?= esc($it['descripcion']); ?></p>
@@ -220,8 +225,8 @@ function esc($str) { return htmlspecialchars($str, ENT_QUOTES | ENT_SUBSTITUTE, 
             </div>
 
             <div class="form-field">
-                <label for="categoria">Categoría *</label>
-                <input id="categoria" name="categoria" type="text" value="<?= esc($_POST['categoria'] ?? ''); ?>">
+                <label for="categoriaNueva">Categoría *</label>
+                <input id="categoriaNueva" name="categoria" type="text" value="<?= esc($_POST['categoria'] ?? ''); ?>">
                 <?php if (!empty($errors['categoria'])): ?><span class="error"><?= esc($errors['categoria']); ?></span><?php endif; ?>
             </div>
 
