@@ -1,14 +1,16 @@
 <?php
 
-include_once("albums.php");
+include_once("conexion.php");
 include_once("funciones.php");
 
+$errors = [];
+$success = null;
 
+$db = new Conexion();
 
 $errors = [];
 $success = null;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Tomamos campos y limpiamos
     $title = trim($_POST['title'] ?? '');
     $artist = trim($_POST['artist'] ?? '');
     $categoria = trim($_POST['categoria'] ?? '');
@@ -24,22 +26,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($descripcion === '') {
         $errors['descripcion'] = 'La descripción es obligatoria.';
     }
+    if (empty($imagen)) {
+        $imagen = 'https://picsum.photos/seed/default/400/250';
+    }
 
-    if (empty($errors)) {
-        $new = [
-            'id' => time(),
-            'title' => $title,
-            'artist' => $artist ?: 'Anónimo',
-            'categoria' => $categoria,
-            'descripcion' => $descripcion,
-            'imagen' => $imagen,
-            'anio' => date('Y'),
-        ];
-        $_SESSION['sugerencias'][] = $new;
-        $success = $new;
-        $items[] = $new;
+if (empty($errors)) {
+        $anio = date('Y');
+        
+        $t = addslashes($title);
+        $a = addslashes($artist);
+        $c = addslashes($categoria);
+        $d = addslashes($descripcion);
+        $u = addslashes($imagen);
+
+        $sqlInsert = "INSERT INTO albuns (titulo, artista, categoria, descripcion, url, anio) VALUES ('$t', '$a', '$c', '$d', '$u', '$anio')";
+        try {
+            $db->ejecutar($sqlInsert);
+            
+            $success = [
+                'title' => $title,
+                'categoria' => $categoria
+            ];
+        } catch (Exception $e) {
+            $errors['db'] = 'Error al guardar en la base de datos.';
+        }
     }
 }
+
+$sqlGet = "SELECT Id as id, titulo as title, artista as artist, categoria, descripcion, url as imagen, anio FROM albuns";
+$items = $db->consultar($sqlGet);
 
 $q = trim($_GET['q'] ?? '');
 $categoriaFilter = trim($_GET['categoria'] ?? '');

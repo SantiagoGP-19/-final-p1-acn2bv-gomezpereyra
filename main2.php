@@ -66,8 +66,6 @@ include_once("conexion.php");
             <div class="form-actions">
                 <?php
                 $objConexion = new conexion();
-                $sql = "INSERT INTO `albuns` (`Id`, `titulo`, `artista`, `categoria`, `descripcion`, `url`) VALUES (NULL, 'dsadasasdasd', 'dadasdasdxzxczcxz', 'dasdasddasdsa', 'czxczxcxzczxdsa', 'dsadasddsdadsadsadsa');";
-                $objConexion->ejecutar($sql);
                 ?>
                 <button type="submit">Enviar sugerencia</button>
                 <small>(*) campos obligatorios</small>

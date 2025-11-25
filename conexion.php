@@ -1,31 +1,36 @@
 <?php
-class conexion{
+class Conexion {
+    private $host = "localhost";
+    private $db = "phpweb2";
+    private $user = "root";
+    private $password = "";
+    private $charset = "utf8mb4";
+    private $pdo;
 
-    private $servidor = "localhost";
-    private $usuario = "root";
-    private $contrasenia ="";
-    private $conexion;
-
-public function __construct(){
-
-        try{
-            $this->conexion = new PDO("mysql:host=$this->servidor;dbname=phpweb2",$this->usuario,$this->contrasenia );
-            $this->conexion->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-        } catch (PDOException $e){
-            return "Falla de conexion".$e;
+    public function __construct() {
+        try {
+            $connection = "mysql:host=" . $this->host . ";dbname=" . $this->db . ";charset=" . $this->charset;
+            $options = [
+                PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_EMULATE_PREPARES   => false,
+            ];
+            $this->pdo = new PDO($connection, $this->user, $this->password, $options);
+        } catch (PDOException $e) {
+            print_r('Error connection: ' . $e->getMessage());
+            die();
         }
     }
 
-public function ejecutar($sql){
-    $this->conexion->exec($sql);
-    return $this->conexion->lastInsertid();
+    public function consultar($sql) {
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-
-public function consultar($sql) {
-        $sentencia = $this->conexion->prepare($sql);
-        $sentencia->execute();
-        return $sentencia->fetchAll(PDO::FETCH_ASSOC);
+    public function ejecutar($sql) {
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        return $this->pdo->lastInsertId();
     }
 }
 ?>
