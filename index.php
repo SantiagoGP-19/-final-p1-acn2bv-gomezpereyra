@@ -41,17 +41,17 @@ if (empty($errors)) {
         $u = addslashes($imagen);
         $y = (int)$anio;
 
-$sqlInsert = "INSERT INTO albuns (titulo, artista, categoria, descripcion, url, anio) VALUES ('$t', '$a', '$c', '$d', '$u', '$y')";
-        try {
-            $db->ejecutar($sqlInsert);
-            
-            $success = [
-                'title' => $title,
-                'categoria' => $categoria
-            ];
-        } catch (Exception $e) {
-            $errors['db'] = 'Error al guardar en la base de datos.';
-        }
+$sqlInsert = "INSERT INTO albuns (titulo, artista, categoria, descripcion, url, anio) VALUES (?, ?, ?, ?, ?, ?)";
+try {
+    $db->insertar($sqlInsert, [$title, $artist, $categoria, $descripcion, $imagen, $anio]);
+    
+    $success = [
+        'title' => $title,
+        'categoria' => $categoria
+    ];
+} catch (Exception $e) {
+    $errors['db'] = 'Error al guardar en la base de datos.';
+}
     }
 }
 

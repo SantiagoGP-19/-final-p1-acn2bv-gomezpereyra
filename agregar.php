@@ -13,20 +13,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo json_encode(['status' => 'error', 'message' => 'Faltan datos obligatorios']);
         exit;
     }
-    try {
-        $db = new conexion();
-        $t = addslashes($titulo);
-        $a = addslashes($artista);
-        $c = addslashes($categoria);
-        $d = addslashes($descripcion);
-        $u = addslashes($imagen);
-        $y = (int)$anio;
+try {
+    $db = new conexion();
 
-        $sql = "INSERT INTO `albuns` (`Id`, `titulo`, `artista`, `categoria`, `descripcion`, `url`, `anio`) VALUES (NULL, '$t', '$a', '$c', '$d', '$u', '$y')";
+    $sql = "INSERT INTO `albuns` (`Id`, `titulo`, `artista`, `categoria`, `descripcion`, `url`, `anio`) VALUES (NULL, ?, ?, ?, ?, ?, ?)";
+    $db->insertar($sql, [$titulo, $artista, $categoria, $descripcion, $imagen, $anio]);
 
-        $db->ejecutar($sql);
-        echo json_encode(['status' => 'success', 'message' => 'Álbum guardado correctamente']);
-    } catch (Exception $e) {
-        echo json_encode(['status' => 'error', 'message' => 'Error en la base de datos']);
-    }
+    echo json_encode(['status' => 'success', 'message' => 'Álbum guardado correctamente']);
+} catch (Exception $e) {
+    echo json_encode(['status' => 'error', 'message' => 'Error en la base de datos']);
+}
 }
