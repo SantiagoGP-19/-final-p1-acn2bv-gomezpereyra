@@ -1,5 +1,4 @@
 <?php
-
 include_once("conexion.php");
 include_once("funciones.php");
 
@@ -15,10 +14,10 @@ $q = trim($_GET['q'] ?? '');
 $categoriaFilter = trim($_GET['categoria'] ?? '');
 $tema = trim($_GET['tema'] ?? 'claro');
 
-$categories = array_values(array_unique(array_map(function ($it) {
+$categorias = array_values(array_unique(array_map(function ($it) {
     return $it['categoria'];
 }, $items)));
-sort($categories);
+sort($categorias);
 
 $filtered = array_filter($items, function ($it) use ($q, $categoriaFilter) {
     if ($q !== '' && stripos($it['title'], $q) === false)
@@ -29,7 +28,6 @@ $filtered = array_filter($items, function ($it) use ($q, $categoriaFilter) {
     }
     return true;
 });
-
 
 $totalItems = count($items);
 $resultsCount = count($filtered);

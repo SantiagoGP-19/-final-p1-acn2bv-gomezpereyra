@@ -32,13 +32,11 @@ include_once("conexion.php");
 
 <section aria-label="Formulario de sugerencia" class="sugerir">
     <h2>Sugerir un álbum</h2>
-
     <?php if ($success): ?>
         <p class="ok">Gracias — recibimos tu sugerencia: <strong><?= esc($success['title']); ?></strong></p>
     <?php endif; ?>
-
     <form id="form-sugerir" method="post" action="agregar.php">
-        <div class="form-grid">
+    <div class="form-grid">
             <div>
                 <label for="title">Título *</label>
                 <input id="title" name="title" type="text" value="<?= esc($_POST['title'] ?? ''); ?>" required>
@@ -49,7 +47,6 @@ include_once("conexion.php");
                 <input id="artist" name="artist" type="text" value="<?= esc($_POST['artist'] ?? ''); ?>">
             </div>
         </div>
-
         <div class="form-grid" style="margin-top: 10px;">
             <div>
                 <label for="categoriaNueva">Categoría *</label>
@@ -61,18 +58,15 @@ include_once("conexion.php");
                 <input id="anio" name="anio" type="number" min="1900" max="2099" value="<?= esc($_POST['anio'] ?? date('Y')); ?>">
             </div>
         </div>
-
         <div class="form-field">
             <label for="descripcion">Descripción *</label>
             <textarea id="descripcion" name="descripcion" rows="3" required><?= esc($_POST['descripcion'] ?? ''); ?></textarea>
             <?php if (!empty($errors['descripcion'])): ?><span class="error"><?= esc($errors['descripcion']); ?></span><?php endif; ?>
         </div>
-
         <div class="form-field">
             <label for="imagen">URL de imagen (opcional)</label>
             <input id="imagen" name="imagen" type="text" value="<?= esc($_POST['imagen'] ?? ''); ?>">
         </div>
-
         <div class="form-actions">
             <button type="submit">Enviar sugerencia</button>
             <small>(*) campos obligatorios</small>

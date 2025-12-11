@@ -14,7 +14,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $descripcion= trim($_POST['descripcion'] ?? '');
         $imagen     = trim($_POST['imagen'] ?? '');
         $anio       = (int)($_POST['anio'] ?? date('Y'));
-
         if ($id > 0 && $title !== '' && $categoria !== '' && $descripcion !== '') {
             $sql = "UPDATE albuns SET 
                         titulo = ?, artista = ?, categoria = ?, 
@@ -26,8 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo json_encode(['status' => 'error', 'message' => 'Faltan datos obligatorios']);
         }
         exit;
-    }
-    if ($action === 'delete') {
+    }if ($action === 'delete') {
     $id = (int)($_POST['id'] ?? 0);
     if ($id > 0) {
         $sql = "DELETE FROM albuns WHERE Id = ?";

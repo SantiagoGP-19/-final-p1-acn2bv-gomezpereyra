@@ -192,14 +192,18 @@ a.btn-link {
     color: white;
 }
 
-.btn-edit:hover { background: #1d4ed8; }
+.btn-edit:hover { 
+    background: #1d4ed8;
+}
 
 .btn-delete {
     background: #374151;
     color: white;
 }
 
-.btn-delete:hover { background: #dc2626; }
+.btn-delete:hover { 
+    background: #dc2626;
+}
 
 .btn-pagination {
     padding: 10px 20px;
@@ -216,9 +220,18 @@ a.btn-link {
 .btn-pagination:hover {
     background: #1d4ed8;
 }
-body.tema-oscuro .btn-edit { background: var(--accent); }
-body.tema-oscuro .btn-delete { background: #4b5563; }
-body.tema-oscuro .btn-delete:hover { background: #ef4444; }
+
+body.tema-oscuro .btn-edit { 
+    background: var(--accent); 
+}
+
+body.tema-oscuro .btn-delete { 
+    background: #4b5563; 
+}
+
+body.tema-oscuro .btn-delete:hover { 
+    background: #ef4444; 
+}
 
 .no-results {
     grid-column: 1/-1;
@@ -283,6 +296,11 @@ footer {
 }
 
 @media (max-width: 560px) {
-    header { flex-direction: column; align-items: flex-start; }
-    .controls { flex-direction: column; }
+header { 
+    flex-direction: column; align-items: flex-start; 
+}
+
+.controls { 
+    flex-direction: column; 
+}
 }
