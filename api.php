@@ -15,7 +15,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 }
 
 $page = max(1, (int)($_GET['page'] ?? 1));
-$limit = 6; 
+$limit = 7; 
 $offset = ($page - 1) * $limit;
 
 $q = trim($_GET['q'] ?? '');

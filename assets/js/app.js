@@ -1,5 +1,3 @@
-
-
 async function cargarAlbums(page = 1) {
     currentPage = page;
     const q = document.getElementById('q')?.value.trim() || '';
