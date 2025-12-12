@@ -6,8 +6,8 @@
             <input id="q" type="text" name="q" placeholder="Buscar por título..." value="<?= esc($q); ?>">
             <label for="categoriaFiltro">Categoría</label>
             <select id="categoriaFiltro" name="categoria">
-                <option value="">Todas</option>
-                <?php foreach ($categories as $cat): ?>
+                <option value="todas">Todas</option>
+                <?php foreach ($categorias as $cat): ?>
                     <option value="<?= esc($cat); ?>" <?= ($categoriaFilter === $cat) ? 'selected' : ''; ?>>
                         <?= esc($cat); ?>
                     </option>
